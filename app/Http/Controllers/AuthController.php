@@ -19,9 +19,8 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
-            'role' => 'required|in:admin,organizer,volunteer',
         ]);
-        $credentials = $request->only('email', 'password', 'role');
+        $credentials = $request->only('email', 'password');
 
         $token = Auth::attempt($credentials);
         if (!$token) {
@@ -48,14 +47,14 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
-            'role' => 'required|in:admin,organizer,volunteer',
+            'role' => 'required|string|in:admin,organizer,volunteer',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role'
+            'role' => $request->role,
         ]);
 
         $token = Auth::login($user);
