@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Application extends Model
 {
@@ -13,5 +14,10 @@ class Application extends Model
         'volunteer_id',
         'announcement_id',
     ];
+
+    public function volunteer(): BelongsTo
+    {
+        return $this->belongsTo(User::class ,'volunteer_id');
+    }
 
 }
