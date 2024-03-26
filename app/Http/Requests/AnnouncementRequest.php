@@ -11,7 +11,7 @@ class AnnouncementRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class AnnouncementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'date' => 'required|date',
+            'description' => 'required|string',
+            'location' => 'required|string|max:255',
+            'required_skills' => 'required|array',
         ];
     }
 }
