@@ -21,8 +21,8 @@ class Announcement extends Model
 
     ];
 
-    public function user(): BelongsTo
+    public function organizer(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class ,'organizer_id');
     }
 }
