@@ -20,4 +20,9 @@ class Application extends Model
         return $this->belongsTo(User::class ,'volunteer_id');
     }
 
+    public function announcement(): BelongsTo
+    {
+        return $this->belongsTo(Announcement::class ,'announcement_id');
+    }
+
 }
