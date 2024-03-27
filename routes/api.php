@@ -29,5 +29,6 @@ Route::post('create_Announcement', [AnnouncementController::class, 'store']);
 Route::get('Announcements', [AnnouncementController::class, 'index']);
 
 
+//--------------- applications ----------------------//
+Route::post('applications', [ApplicationController::class, 'store']);
 
-Route::post('announcements/{announcement}/apply', [ApplicationController::class, 'store']);
