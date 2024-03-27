@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,3 +27,7 @@ Route::post('refresh', [AuthController::class, 'refresh']);
 //--------- organizer ----------//
 Route::post('create_Announcement', [AnnouncementController::class, 'store']);
 Route::get('Announcements', [AnnouncementController::class, 'index']);
+
+
+
+Route::post('announcements/{announcement}/apply', [ApplicationController::class, 'store']);

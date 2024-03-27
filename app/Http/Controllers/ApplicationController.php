@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
-    public function store(ApplicationRequest $request, Announcement $announcement)
+    public function store(ApplicationRequest $request)
     {
         $validatedData = $request->validated();
 
         $application = new Application();
-        $application->announcement_id = $announcement->id;
+        $application->announcement_id = $validatedData['announcement_id'];
         $application->volunteer_id = $validatedData['volunteer_id'];
         $application->save();
 

@@ -23,6 +23,7 @@ class ApplicationRequest extends FormRequest
     {
         return [
             'volunteer_id' => 'required|exists:users,id',
+            'announcement_id' => 'required|exists:announcements,id',
         ];
     }
 }
