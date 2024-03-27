@@ -25,3 +25,4 @@ Route::post('refresh', [AuthController::class, 'refresh']);
 
 //--------- organizer ----------//
 Route::post('create_Announcement', [AnnouncementController::class, 'store']);
+Route::get('Announcements', [AnnouncementController::class, 'index']);
