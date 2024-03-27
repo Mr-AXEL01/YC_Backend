@@ -21,9 +21,19 @@ class AnnouncementController extends Controller
     {
         $announcementData = $request->validated();
 
+        $requiredSkillsJson = json_encode($announcementData['required_skills']);
+
         $announcementData['organizer_id'] = auth()->id();
 
-        $announcement = Announcement::create($announcementData);
+        $announcement = Announcement::create([
+            'title' => $announcementData['title'],
+            'type' => $announcementData['type'],
+            'date' => $announcementData['date'],
+            'description' => $announcementData['description'],
+            'location' => $announcementData['location'],
+            'required_skills' => $requiredSkillsJson,
+            'organizer_id' => auth()->id(),
+        ]);
 
         return response()->json([
             'status' => 'success',
