@@ -13,6 +13,7 @@ class Application extends Model
     protected $fillable=[
         'volunteer_id',
         'announcement_id',
+        'status'
     ];
 
     public function volunteer(): BelongsTo
