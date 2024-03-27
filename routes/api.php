@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,8 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
+//---------Authentification-------//
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout']);
 Route::post('refresh', [AuthController::class, 'refresh']);
+
+//--------- organizer ----------//
+Route::post('create_Announcement', [AnnouncementController::class, 'store']);
