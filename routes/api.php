@@ -25,12 +25,13 @@ Route::post('logout', [AuthController::class, 'logout']);
 Route::post('refresh', [AuthController::class, 'refresh']);
 
 //--------- organizer ----------//
-Route::post('create_Announcement', [AnnouncementController::class, 'store']);
+Route::post('createAnnouncement', [AnnouncementController::class, 'store']);
 Route::get('Announcements', [AnnouncementController::class, 'index']);
 
 
 //--------------- applications ----------------------//
 Route::post('applications', [ApplicationController::class, 'store']);
+Route::get('reviewApplications', [ApplicationController::class, 'index']);
 Route::put('applications/{application}', [ApplicationController::class, 'manageApplications']);
 
 
