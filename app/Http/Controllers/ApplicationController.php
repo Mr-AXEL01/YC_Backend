@@ -31,7 +31,7 @@ class ApplicationController extends Controller
     /*
      * method for organizer to approve or refuse the applications of volunteers
      */
-    public function updateApplicationStatus(Announcement $announcement, Application $application, Request $request)
+    public function manageApplications(Announcement $announcement, Application $application, Request $request)
     {
         if ($announcement->organizer_id !== auth()->id()) {
             return response()->json(['error' => 'Unauthorized'], 403);
