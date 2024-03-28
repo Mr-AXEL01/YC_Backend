@@ -29,6 +29,30 @@ class ApplicationController extends Controller
     }
 
     /*
+     * method for organizer to see the applications of volunteers
+     */
+    public function index()
+    {
+        $organizerId = auth()->id();
+
+        $pendingApplications = Application::whereHas('announcement', function ($query) use ($organizerId) {
+            $query->where('organizer_id', $organizerId);
+        })->where('status', 'pending')->get();
+
+        if ($pendingApplications->isEmpty()) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'No pending applications found for the organizer.',
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'pending_applications' => $pendingApplications,
+        ]);
+    }
+
+    /*
      * method for organizer to approve or refuse the applications of volunteers
      */
     public function manageApplications(Application $application, Request $request)
