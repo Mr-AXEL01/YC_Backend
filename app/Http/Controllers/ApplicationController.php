@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
+    /*
+     * method for volunteer to apply to a volunteer initiative
+     */
     public function store(ApplicationRequest $request)
     {
         $validatedData = $request->validated();
@@ -24,4 +27,30 @@ class ApplicationController extends Controller
             'application' => $application,
         ]);
     }
+
+    /*
+     * method for organizer to approve or refuse the applications of volunteers
+     */
+    public function updateApplicationStatus(Announcement $announcement, Application $application, Request $request)
+    {
+        if ($announcement->organizer_id !== auth()->id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $validatedData = $request->validate([
+            'status' => 'required|in:approved,refused',
+        ]);
+
+        $application->status = $validatedData['status'];
+        $application->save();
+
+        $message = ($application->status === 'approved') ? 'Application approved successfully.' : 'Application rejected successfully.';
+
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+            'application' => $application,
+        ]);
+    }
+
 }
