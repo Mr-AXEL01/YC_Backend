@@ -31,6 +31,7 @@ Route::get('Announcements', [AnnouncementController::class, 'index']);
 
 //--------------- applications ----------------------//
 Route::post('applications', [ApplicationController::class, 'store']);
-Route::post('applications/{application_id}/status', [ApplicationController::class, 'manageApplications']);
+Route::put('applications/{application}/status', [ApplicationController::class, 'manageApplications']);
+
 
 
