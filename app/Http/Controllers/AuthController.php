@@ -158,6 +158,26 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * User logout
+     *
+     * Logs out the authenticated user.
+     *
+     * @OA\Post(
+     *     path="/api/logout",
+     *     summary="User logout",
+     *     tags={"Authentication"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successfully logged out",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Successfully logged out")
+     *         )
+     *     )
+     * )
+     */
     public function logout()
     {
         Auth::logout();
@@ -167,6 +187,30 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Refresh user token
+     *
+     * Generates a new access token for the authenticated user.
+     *
+     * @OA\Post(
+     *     path="/api/refresh",
+     *     summary="Refresh user token",
+     *     tags={"Authentication"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Token refreshed successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="user", type="object", ref="#/components/schemas/User"),
+     *             @OA\Property(property="authorisation", type="object",
+     *                 @OA\Property(property="token", type="string"),
+     *                 @OA\Property(property="type", type="string", example="bearer")
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function refresh()
     {
         return response()->json([
