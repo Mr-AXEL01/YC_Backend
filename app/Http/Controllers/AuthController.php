@@ -7,6 +7,42 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @OA\Post(
+ *     path="/api/login",
+ *     summary="User login",
+ *     description="Login with email and password to obtain an access token.",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email","password"},
+ *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+ *             @OA\Property(property="password", type="string", format="password", example="password123")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful login",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="success"),
+ *             @OA\Property(property="user", type="object", ref="#/components/schemas/User"),
+ *             @OA\Property(property="authorisation", type="object",
+ *                 @OA\Property(property="token", type="string"),
+ *                 @OA\Property(property="type", type="string", example="bearer")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Unauthorized")
+ *         )
+ *     )
+ * )
+ */
 class AuthController extends Controller
 {
     public function __construct()
