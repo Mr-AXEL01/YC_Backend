@@ -7,7 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-
+/**
+ * @OA\Schema(
+ *     schema="User",
+ *     title="User",
+ *     description="User schema",
+ *     @OA\Property(property="id", type="integer", description="ID of the user"),
+ *     @OA\Property(property="name", type="string", description="Name of the user"),
+ *     @OA\Property(property="email", type="string", format="email", description="Email of the user"),
+ * )
+ */
 class AuthController extends Controller
 {
     public function __construct()

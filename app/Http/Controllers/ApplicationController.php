@@ -7,10 +7,53 @@ use App\Models\Announcement;
 use App\Models\Application;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Schema(
+ *     schema="Application",
+ *     title="Application",
+ *     description="Application schema",
+ *     @OA\Property(property="id", type="integer", description="ID of the application"),
+ *     @OA\Property(property="volunteer_id", type="integer", description="ID of the volunteer"),
+ *     @OA\Property(property="announcement_id", type="integer", description="ID of the announcement"),
+ * )
+ */
 class ApplicationController extends Controller
 {
-    /*
-     * method for volunteer to apply to a volunteer initiative
+    /**
+     * Store a new application.
+     *
+     * Allows a volunteer to apply to a volunteer initiative.
+     *
+     * @OA\Post(
+     *     path="/api/applications",
+     *     summary="Store a new application",
+     *     tags={"Applications"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="announcement_id", type="integer", example="1"),
+     *             @OA\Property(property="volunteer_id", type="integer", example="1"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Application submitted successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Application submitted successfully."),
+     *             @OA\Property(property="application", type="object", ref="#/components/schemas/Application"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation error",
+     *     )
+     * )
      */
     public function store(ApplicationRequest $request)
     {
@@ -28,8 +71,29 @@ class ApplicationController extends Controller
         ]);
     }
 
-    /*
-     * method for organizer to see the applications of volunteers
+    /**
+     * Get pending applications for the organizer.
+     *
+     * Retrieves pending applications for the authenticated organizer.
+     *
+     * @OA\Get(
+     *     path="/api/applications",
+     *     summary="Get pending applications for the organizer",
+     *     tags={"Applications"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="pending_applications", type="array", @OA\Items(ref="#/components/schemas/Application")),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     )
+     * )
      */
     public function index()
     {
@@ -52,8 +116,51 @@ class ApplicationController extends Controller
         ]);
     }
 
-    /*
-     * method for organizer to approve or refuse the applications of volunteers
+    /**
+     * Manage applications for the organizer.
+     *
+     * Allows the organizer to approve or reject applications from volunteers.
+     *
+     * @OA\Patch(
+     *     path="/api/applications/{application}",
+     *     summary="Manage applications for the organizer",
+     *     tags={"Applications"},
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="application",
+     *         in="path",
+     *         description="ID of the application",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="approved"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="string", example="success"),
+     *             @OA\Property(property="message", type="string", example="Application approved successfully."),
+     *             @OA\Property(property="application", type="object", ref="#/components/schemas/Application"),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     *     @OA\Response(
+     *         response=403,
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Validation error",
+     *     )
+     * )
      */
     public function manageApplications(Application $application, Request $request)
     {
