@@ -195,40 +195,4 @@ class AuthController extends Controller
             'message' => 'Successfully logged out',
         ]);
     }
-
-    /**
-     * Refresh user token
-     *
-     * Generates a new access token for the authenticated user.
-     *
-     * @OA\Post(
-     *     path="/api/refresh",
-     *     summary="Refresh user token",
-     *     tags={"Authentication"},
-     *     security={{"bearerAuth": {}}},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Token refreshed successfully",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="status", type="string", example="success"),
-     *             @OA\Property(property="user", type="object", ref="#/components/schemas/User"),
-     *             @OA\Property(property="authorisation", type="object",
-     *                 @OA\Property(property="token", type="string"),
-     *                 @OA\Property(property="type", type="string", example="bearer")
-     *             )
-     *         )
-     *     )
-     * )
-     */
-    public function refresh()
-    {
-        return response()->json([
-            'status' => 'success',
-            'user' => Auth::user(),
-            'authorisation' => [
-                'token' => Auth::refresh(),
-                'type' => 'bearer',
-            ]
-        ]);
-    }
 }
