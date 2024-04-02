@@ -77,14 +77,16 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/api/announcements/create": {
             "post": {
                 "tags": [
                     "Announcements"
                 ],
                 "summary": "Create a new announcement",
                 "description": "Create a new announcement.\n\nAllows an organizer to create a new announcement.",
-                "operationId": "dc2f49bef808056e16e168f71b8830ec",
+                "operationId": "1d4de4d903b8f3e18238533aa5bb6634",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -587,54 +589,6 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Successfully logged out"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/refresh": {
-            "post": {
-                "tags": [
-                    "Authentication"
-                ],
-                "summary": "Refresh user token",
-                "description": "Refresh user token\n\nGenerates a new access token for the authenticated user.",
-                "operationId": "2c27d311a2876560fcb5a754b556cdc5",
-                "responses": {
-                    "200": {
-                        "description": "Token refreshed successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "success"
-                                        },
-                                        "user": {
-                                            "$ref": "#/components/schemas/User"
-                                        },
-                                        "authorisation": {
-                                            "properties": {
-                                                "token": {
-                                                    "type": "string"
-                                                },
-                                                "type": {
-                                                    "type": "string",
-                                                    "example": "bearer"
-                                                }
-                                            },
-                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
