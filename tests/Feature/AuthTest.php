@@ -16,7 +16,7 @@ class AuthTest extends TestCase
 
         $userData = [
             'name' => 'Test User',
-            'email' => 'test3@example.com',
+            'email' => 'test5@example.com',
             'password' => 'password',
             'role' => 'volunteer',
         ];
