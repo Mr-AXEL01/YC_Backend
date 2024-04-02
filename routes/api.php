@@ -24,8 +24,8 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout']);
 
 //--------- organizer ----------//
-Route::post('createAnnouncement', [AnnouncementController::class, 'store']);
-Route::get('Announcements', [AnnouncementController::class, 'index']);
+Route::post('announcements/create', [AnnouncementController::class, 'store']);
+Route::get('announcements', [AnnouncementController::class, 'index']);
 
 
 //--------------- applications ----------------------//
