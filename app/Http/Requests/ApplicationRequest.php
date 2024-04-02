@@ -22,7 +22,6 @@ class ApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'volunteer_id' => 'required|exists:users,id',
             'announcement_id' => 'required|exists:announcements,id',
         ];
     }
