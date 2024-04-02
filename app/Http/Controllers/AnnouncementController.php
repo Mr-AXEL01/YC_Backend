@@ -105,7 +105,7 @@ class AnnouncementController extends Controller
      * Allows an organizer to create a new announcement.
      *
      * @OA\Post(
-     *     path="/api/announcements",
+     *     path="/api/announcements/create",
      *     summary="Create a new announcement",
      *     tags={"Announcements"},
      *     security={{"bearerAuth": {}}},
@@ -142,6 +142,7 @@ class AnnouncementController extends Controller
 
     public function store(AnnouncementRequest $request)
     {
+      //  dd($AnnouncementRequest);
         $announcementData = $request->validated();
 
         $requiredSkillsJson = json_encode($announcementData['required_skills']);
