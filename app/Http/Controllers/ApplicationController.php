@@ -33,7 +33,6 @@ class ApplicationController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             @OA\Property(property="announcement_id", type="integer", example="1"),
-     *             @OA\Property(property="volunteer_id", type="integer", example="1"),
      *         )
      *     ),
      *     @OA\Response(
@@ -61,7 +60,7 @@ class ApplicationController extends Controller
 
         $application = new Application();
         $application->announcement_id = $validatedData['announcement_id'];
-        $application->volunteer_id = $validatedData['volunteer_id'];
+        $application->volunteer_id = auth()->id();
         $application->save();
 
         return response()->json([
